@@ -34,7 +34,7 @@ Together: Spindle explores **what to scrape** and **extracts the data you care a
 docker pull ghcr.io/imrany/spindle
 
 ## Runs the image, creating a spindle container
-docker run -d --name spindle --restart unless-stopped -p 5230:5230 -v ~/.spindle:/var/opt/spindle ghcr.io/imrany/spindle
+docker run -d --name spindle --restart unless-stopped -p 5020:5020 -v ~/.spindle:/var/opt/spindle ghcr.io/imrany/spindle
 ```
 
 ## 📦 Build
@@ -72,16 +72,16 @@ Images: []
 
 ### 🔹 Run in Server Mode
 
-Start the server (defaults: `0.0.0.0:8080`):
+Start the server (defaults: `0.0.0.0:5020`):
 
 ```bash
-go run main.go server --addr=0.0.0.0 --port=8080
+go run main.go server --addr=0.0.0.0 --port=5020
 ```
 
 Test with `curl` or browser:
 
 ```bash
-curl "http://localhost:8080/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4"
+curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4"
 ```
 
 **JSON Response:**

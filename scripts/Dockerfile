@@ -40,11 +40,11 @@ COPY --from=builder /app/spindle .
 USER spindle
 
 # Expose default port
-EXPOSE 5230
+EXPOSE 5020
 
 # Set defaults
 ENV ADDR=0.0.0.0 \
-    PORT=5230
+    PORT=5020
 
 LABEL org.opencontainers.image.title="Spindle" \
       org.opencontainers.image.description="Spindle is an open-source, lightweight web crawler and scraper. It can discover links (crawler) and extract structured data (scraper)." \

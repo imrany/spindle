@@ -6,7 +6,7 @@ services:
     volumes:
       - ~/.spindle/:/var/opt/spindle
     ports:
-      - 5230:5230
+      - 5020:5020
     environment:
-      - PORT=5230
+      - PORT=5020
       - ADDR=0.0.0.0

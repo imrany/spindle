@@ -56,7 +56,7 @@ func init() {
 
 		// Bind CLI flags and ENV variables
 		rootCmd.PersistentFlags().String("addr", "0.0.0.0", "Bind address")
-		rootCmd.PersistentFlags().IntP("port", "p", 8080, "Set the port for the server")
+		rootCmd.PersistentFlags().IntP("port", "p", 5020, "Set the port for the server")
 
 		_ = viper.BindPFlag("addr", rootCmd.PersistentFlags().Lookup("addr"))
 		_ = viper.BindPFlag("port", rootCmd.PersistentFlags().Lookup("port"))
