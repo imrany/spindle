@@ -81,7 +81,16 @@ go run main.go server --addr=0.0.0.0 --port=5020
 Test with `curl` or browser:
 
 ```bash
+# Default (English)
 curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4"
+
+# Force French
+# curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=fr"
+curl http://localhost:5020/scrape?url="https://www.youtube.com/watch?v=pum3k4yECT4&hl=fr"
+
+# Force German
+# curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=de"
+curl http://localhost:5020/scrape?url="https://www.youtube.com/watch?v=pum3k4yECT4&hl=de"
 ```
 
 **JSON Response:**
