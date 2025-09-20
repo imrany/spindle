@@ -62,10 +62,9 @@ func init() {
 
 	} else if len(firstArg) > 7 &&
 		(firstArg[:7] == "http://" || firstArg[:8] == "https://") {
-
 		// Direct URL scrape mode
 		url := firstArg
-		pageInfo, err := scrape.ExtractInfo(url)
+		pageInfo, err := scrape.ExtractInfo(url, "")
 		if err != nil {
 			log.Fatalf("Error scraping URL: %v", err)
 		}
