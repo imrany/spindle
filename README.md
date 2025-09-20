@@ -34,7 +34,7 @@ Together: Spindle explores **what to scrape** and **extracts the data you care a
 docker pull ghcr.io/imrany/spindle
 
 ## Runs the image, creating a spindle container
-docker run -d --name spindle --restart unless-stopped -p 5020:5020 -v ~/.spindle:/var/opt/spindle ghcr.io/imrany/spindle
+docker run -d --name spindle --restart unless-stopped -p 5020:5020 -v ~/.spindle:/var/opt/spindle ghcr.io/imrany/spindle server
 ```
 
 ## 📦 Build
