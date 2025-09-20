@@ -21,7 +21,7 @@ type Profile struct {
 var rootCmd = &cobra.Command{
 	Use:   "crawler",
 	Short: "An open source, lightweight web crawler and scraper",
-	Long:  `A web crawler and scraper that extracts titles, descriptions, links, favicons, images, and videos from web pages.`,
+	Long:  `An open-source, lightweight web crawler and scraper. It can discover links on the web (crawler) and extract structured data from webpages (scraper).`,
 	Run:   runServer,
 }
 
