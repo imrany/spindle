@@ -1,0 +1,12 @@
+services:
+  spindle:
+    image: ghcr.io/imrany/spindle:latest
+    container_name: spindle
+    restart: unless-stopped
+    volumes:
+      - ~/.spindle/:/var/opt/spindle
+    ports:
+      - 5230:5230
+    environment:
+      - PORT=5230
+      - ADDR=0.0.0.0
