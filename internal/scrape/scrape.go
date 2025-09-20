@@ -12,14 +12,14 @@ import (
 	"golang.org/x/net/html"
 )
 
-
 type PageInfo struct {
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	Links       []string `json:"links"`
-	Favicon     string   `json:"favicon"`
-	Images      []string `json:"images"`
-	Video       string   `json:"video"`
+	Title        string   `json:"title"`
+	Description  string   `json:"description"`
+	Links        []string `json:"links"`
+	Favicon      string   `json:"favicon"`
+	Images       []string `json:"images"`
+	PreviewImage string   `json:"preview_image"`
+	Video        string   `json:"video"`
 }
 
 func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
@@ -42,6 +42,8 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 
 	// User-Agent
 	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; SpindleBot/1.0; +https://spindle.villebiz.com)")
+
+	log.Printf("[INFO] Fetching URL: %s (lang=%s)", urlStr, langFormat)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -66,19 +68,44 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 				if n.FirstChild != nil {
 					pageInfo.Title = n.FirstChild.Data
 				}
+
 			case "meta":
-				var name, content string
+				var name, property, content string
 				for _, a := range n.Attr {
-					if a.Key == "name" {
+					switch strings.ToLower(a.Key) {
+					case "name":
 						name = a.Val
-					}
-					if a.Key == "content" {
+					case "property":
+						property = a.Val
+					case "content":
 						content = a.Val
 					}
 				}
-				if strings.ToLower(name) == "description" {
+
+				// Description
+				if strings.EqualFold(name, "description") {
 					pageInfo.Description = content
 				}
+
+				// OpenGraph / Twitter images
+				if strings.EqualFold(property, "og:image") ||
+					strings.EqualFold(property, "og:image:url") ||
+					strings.EqualFold(name, "twitter:image") ||
+					strings.EqualFold(name, "twitter:image:src") {
+					abs := resolveURL(urlStr, content)
+					if abs != "" {
+						pageInfo.Images = append(pageInfo.Images, abs)
+						if pageInfo.PreviewImage == "" {
+							pageInfo.PreviewImage = abs
+						}
+					}
+				}
+
+				// OpenGraph video
+				if strings.EqualFold(property, "og:video") {
+					pageInfo.Video = resolveURL(urlStr, content)
+				}
+
 			case "a":
 				for _, a := range n.Attr {
 					if a.Key == "href" {
@@ -89,6 +116,7 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 						break
 					}
 				}
+
 			case "link":
 				var rel, href string
 				for _, a := range n.Attr {
@@ -102,16 +130,21 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 				if strings.ToLower(rel) == "icon" || strings.ToLower(rel) == "shortcut icon" {
 					pageInfo.Favicon = resolveURL(urlStr, href)
 				}
+
 			case "img":
 				for _, a := range n.Attr {
 					if a.Key == "src" {
 						absoluteURL := resolveURL(urlStr, a.Val)
 						if absoluteURL != "" {
 							pageInfo.Images = append(pageInfo.Images, absoluteURL)
+							if pageInfo.PreviewImage == "" {
+								pageInfo.PreviewImage = absoluteURL
+							}
 						}
 						break
 					}
 				}
+
 			case "video":
 				for _, a := range n.Attr {
 					if a.Key == "src" {
@@ -142,6 +175,9 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 	}
 	f(doc)
 
+	log.Printf("[INFO] Extracted: title=%q, desc=%q, images=%d, video=%q",
+		pageInfo.Title, pageInfo.Description, len(pageInfo.Images), pageInfo.Video)
+
 	return pageInfo, nil
 }
 
@@ -171,10 +207,12 @@ func ScrapeHandler(w http.ResponseWriter, r *http.Request) {
 
 	pageInfo, err := ExtractInfo(urlParam, langParam)
 	if err != nil {
-		log.Printf("Error extracting info: %v", err)
+		log.Printf("[ERROR] Extracting info: %v", err)
 		http.Error(w, fmt.Sprintf("Error: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(pageInfo)
+	if err := json.NewEncoder(w).Encode(pageInfo); err != nil {
+		log.Printf("[ERROR] Encoding response: %v", err)
+	}
 }
