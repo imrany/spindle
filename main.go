@@ -31,7 +31,6 @@ func runServer(_ *cobra.Command, _ []string) {
 		Port: viper.GetInt("port"),
 	}
 
-	fmt.Printf("Starting server on %s:%d...\n", profile.Addr, profile.Port)
 	if err := server.StartServer(profile.Addr, profile.Port); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
@@ -48,7 +47,7 @@ func init() {
 	if firstArg == "server" {
 		// Load .env if present
 		if err := godotenv.Load(); err != nil {
-			slog.Warn("No .env file found or failed to load", "error", err)
+			slog.Warn("Using default config, .env file not found")
 		}
 
 		viper.AutomaticEnv()
