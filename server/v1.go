@@ -33,7 +33,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 // corsMiddleware adds CORS headers to every response.
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Allow all origins for now — you can restrict to your domain
+		// Allow all origins — change "*" to your frontend domain if needed
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
@@ -62,12 +62,14 @@ func (lrw *loggingResponseWriter) WriteHeader(code int) {
 func StartServer(addr string, port int) error {
 	mux := http.NewServeMux()
 
-	// Compose middlewares: logging -> CORS -> handler
-	handler := loggingMiddleware(corsMiddleware(http.HandlerFunc(scrape.ScrapeHandler)))
-	mux.Handle("/scrape", handler)
+	// Register routes
+	mux.HandleFunc("/scrape", scrape.ScrapeHandler)
+
+	// Apply CORS + logging globally
+	handler := loggingMiddleware(corsMiddleware(mux))
 
 	portStr := fmt.Sprintf("%s:%d", addr, port)
 	slog.Info("Server starting", "addr", addr, "port", port)
 
-	return http.ListenAndServe(portStr, mux)
+	return http.ListenAndServe(portStr, handler)
 }
