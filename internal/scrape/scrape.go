@@ -41,7 +41,11 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 	req.Header.Set("Accept-Language", langFormat)
 
 	// User-Agent
-	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; SpindleBot/1.0; +https://spindle.villebiz.com)")
+	// req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; SpindleBot/1.0; +https://spindle.villebiz.com)")
+	req.Header.Set("User-Agent", 
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
+    "(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36")
+
 
 	log.Printf("[INFO] Fetching URL: %s (lang=%s)", urlStr, langFormat)
 
