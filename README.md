@@ -25,9 +25,29 @@ Together: Spindle explores **what to scrape** and **extracts the data you care a
 
 4. In crawler mode, follows links to discover additional pages.
 
+> **GitHub Container Registry**: available at `ghcr.io/imrany/spindle`
+
+### Run on docker
+
+```bash
+## Pull the docker image
+docker pull ghcr.io/imrany/spindle
+
+## Runs the image, creating a spindle container
+docker run -d --name spindle --restart unless-stopped -p 5230:5230 -v ~/.spindle:/var/opt/spindle ghcr.io/imrany/spindle
+```
+
 ## 📦 Build
 
 ```bash
+# Clone the repository
+git clone https://github.com/imrany/spindle.git
+cd spindle
+
+# Install Go dependencies
+go mod download
+
+# Build
 go build main.go
 ```
 
@@ -45,7 +65,7 @@ go run main.go https://www.youtube.com/watch?v=pum3k4yECT4
 Title: America Is In Trouble.. Candace Owens Might Be Cooked & Zuck Got Massively Embarrassed! - YouTube
 Description: THIS WEEK ON NEWSDADDYYYY!!! 🥤🍿**JIMMY KIMMEL — ABC PULLS THE PLUG**Jimmy Kimmel’s late-night show was pulled from the schedule after his comments about Ch...
 Favicon: https://www.youtube.com/s/desktop/2ea5cbbe/img/favicon_144x144.png
-Video: 
+Video:
 Links: [https://www.youtube.com/ https://www.youtube.com/ https://www.youtube.com/about/ https://www.youtube.com/about/press/ https://www.youtube.com/about/copyright/ https://www.youtube.com/t/contact_us/ https://www.youtube.com/creators/ https://www.youtube.com/ads/ https://developers.google.com/youtube https://www.youtube.com/t/terms https://www.youtube.com/t/privacy https://www.youtube.com/about/policies/ https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen https://www.youtube.com/new]
 Images: []
 ```
@@ -112,3 +132,26 @@ curl "http://localhost:8080/scrape?url=https://www.youtube.com/watch?v=pum3k4yEC
 - [ ] Add caching & rate limiting.
 - [ ] Support deeper recursive crawling.
 - [ ] Extract Open Graph / Twitter Card metadata.
+
+## Contributing
+
+Spindle is an open-source project that welcomes contributions from developers, designers, and users worldwide. We maintain a collaborative and inclusive development environment that values quality, innovation, and community feedback.
+
+### Ways to Contribute
+
+- **Code Contributions**: Bug fixes, feature implementations, and performance improvements
+- **Documentation**: API documentation, user guides, and technical specifications
+- **Testing**: Quality assurance, test case development, and bug reporting
+- **Localization**: Translation support for multiple languages and regions
+- **Community Support**: Helping users on GitHub discussions, and forums
+
+## License
+
+Spindle is released under the MIT License, providing maximum flexibility for both personal and commercial use. This license allows for:
+
+- **Commercial Use**: Deploy Spindle in commercial environments without licensing fees
+- **Modification**: Adapt and customize the codebase for specific requirements
+- **Distribution**: Share modified versions while maintaining license attribution
+- **Private Use**: Use Spindle internally without disclosure requirements
+
+See the [LICENSE](./LICENSE) file for complete licensing terms.
