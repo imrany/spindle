@@ -65,9 +65,9 @@ go run main.go https://www.youtube.com/watch?v=pum3k4yECT4
 Title: America Is In Trouble.. Candace Owens Might Be Cooked & Zuck Got Massively Embarrassed! - YouTube
 Description: THIS WEEK ON NEWSDADDYYYY!!! 🥤🍿**JIMMY KIMMEL — ABC PULLS THE PLUG**Jimmy Kimmel’s late-night show was pulled from the schedule after his comments about Ch...
 Favicon: https://www.youtube.com/s/desktop/2ea5cbbe/img/favicon_144x144.png
-Video:
+Video: 
 Links: [https://www.youtube.com/ https://www.youtube.com/ https://www.youtube.com/about/ https://www.youtube.com/about/press/ https://www.youtube.com/about/copyright/ https://www.youtube.com/t/contact_us/ https://www.youtube.com/creators/ https://www.youtube.com/ads/ https://developers.google.com/youtube https://www.youtube.com/t/terms https://www.youtube.com/t/privacy https://www.youtube.com/about/policies/ https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen https://www.youtube.com/new]
-Images: []
+Images: [https://i.ytimg.com/vi/pum3k4yECT4/maxresdefault.jpg https://i.ytimg.com/vi/pum3k4yECT4/maxresdefault.jpg]
 ```
 
 ### 🔹 Run in Server Mode
@@ -114,7 +114,11 @@ curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yEC
     "https://www.youtube.com/new"
   ],
   "favicon": "https://www.youtube.com/s/desktop/2ea5cbbe/img/favicon_144x144.png",
-  "images": [],
+  "images": [
+    "https://i.ytimg.com/vi/pum3k4yECT4/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/pum3k4yECT4/maxresdefault.jpg"
+  ],
+  "preview_image": "https://i.ytimg.com/vi/pum3k4yECT4/maxresdefault.jpg",
   "video": ""
 }
 ```

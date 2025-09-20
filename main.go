@@ -75,7 +75,6 @@ func init() {
 		)
 
 		os.Exit(0)
-
 	} else {
 		fmt.Println("Usage: spindle [server|url]")
 		os.Exit(1)

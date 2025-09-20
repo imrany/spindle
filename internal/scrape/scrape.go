@@ -175,9 +175,6 @@ func ExtractInfo(urlStr string, lang string) (PageInfo, error) {
 	}
 	f(doc)
 
-	log.Printf("[INFO] Extracted: title=%q, desc=%q, images=%d, video=%q",
-		pageInfo.Title, pageInfo.Description, len(pageInfo.Images), pageInfo.Video)
-
 	return pageInfo, nil
 }
 
