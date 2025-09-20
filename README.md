@@ -85,12 +85,10 @@ Test with `curl` or browser:
 curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4"
 
 # Force French
-# curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=fr"
-curl http://localhost:5020/scrape?url="https://www.youtube.com/watch?v=pum3k4yECT4&hl=fr"
+curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=fr"
 
 # Force German
-# curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=de"
-curl http://localhost:5020/scrape?url="https://www.youtube.com/watch?v=pum3k4yECT4&hl=de"
+curl "http://localhost:5020/scrape?url=https://www.youtube.com/watch?v=pum3k4yECT4&lang=de"
 ```
 
 **JSON Response:**
